@@ -1,7 +1,7 @@
 <?php
-
-class Allergen{
-  public $id_allergen;
+class Allergen
+{
+  public $id;
   public $name;
 }
 ?>
