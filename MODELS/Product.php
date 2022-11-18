@@ -1,7 +1,6 @@
 <?php
 class Product
 {
-  
   //DB Related
    private $conn;
    private $table = "product";
