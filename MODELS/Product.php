@@ -7,5 +7,6 @@ class Product
   public $ingredients = [];
   public $description;
   public $prize;
+  public $quantity;
 }
 ?>
