@@ -8,6 +8,6 @@ class Product
   public $description;
   public $prize;
   public $quantity;
-  public $nutritional_value
+  public $nutritional_value;
 }
 ?>
