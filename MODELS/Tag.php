@@ -14,10 +14,10 @@ Class Tag
 
         function createTag($tag)
         {
-            $query = "INSERT INTO $this -> table_name (tag_ID, tag) VALUES (?, ?)";   
+            $query = "INSERT INTO $this -> table_name (tag) VALUES (?)";   
             $stmt = $this -> conn -> prepare($query);
 
-            $stmt->bind_param('ii', $this -> tag_ID, $this -> tag); 
+            $stmt->bind_param('i', $this -> tag); 
             $stmt->execute();
         }
 
