@@ -21,13 +21,6 @@ Class Tag
             $stmt->execute();
         }
 
-        function deleteProductTag($tag_ID, product_ID)
-        {
-            $query = "ALTER TABLE $this -> table_name (tag_ID) DROP COLUMN $this -> tag_ID";
-            $stmt = $this -> conn -> prepare($query);
-            return $stmt;   
-        }
-
         function getTag($tag_ID)
         {
             $query = "SELECT * FROM $this -> table_name WHERE ID = $tag_ID";
