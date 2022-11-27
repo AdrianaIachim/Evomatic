@@ -75,13 +75,14 @@ class Ingredient
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        $query1 = 'SELECT DISTINCT id FROM ' . $this->table_name . ' WHERE name = \'' . $name; //Query per ritornarmi l'id dell'allergene.
-        $stmt1 = $this->conn-> prepare($query1);
-        $stmt1-> execute();
-        $res = $stmt1->get_result();
-        
-        if($res > 0)
-        {  
+        if(count($allergens_ids) > 0);
+        {
+            $query1 = 'SELECT DISTINCT id FROM ' . $this->table_name . ' WHERE name = \'' . $name; //Query per ritornarmi l'id dell'allergene.
+            $stmt1 = $this->conn-> prepare($query1);
+            $stmt1-> execute();
+            $res = $stmt1->get_result();
+            
+    
             for($i = 0; $i < count($allergens_ids); $i++)
             {
                 $this->setIngredientAllergen($res, $allergens_ids[$i]);
