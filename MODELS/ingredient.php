@@ -39,6 +39,11 @@ class Ingredient
     public function getIngredientAllergens($id) //Ritorna gli allergeni di un ingrediente.
     {
         $query = 'SELECT a.id, a.name FROM ' . $this->table_name . ' i INNER JOIN ingredient_allergen ia ON i.id = ia.ingredient INNER JOIN allergen a ON ia.allergen = a.id WHERE i.id = ' . $id . ' ORDER BY a.name';
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
     }
 
     public function deleteIngredientFromAllAllergens($id) //Cancella l'ingrediente nella tabella molti a molti con gli allergeni.
@@ -49,10 +54,19 @@ class Ingredient
         $stmt->execute();
     }
 
-    public function deleteIngredient($id) //Cancella l'allergene dalla tabella allergen.
+    public function deleteIngredientFromAllProducts($id) //Cancella l'ingrediente nella tabella molti a molti con gli ingredienti.
+    {
+        $query = 'DELETE FROM product_ingredient WHERE ingredient = ' . $id;
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+    }
+
+    public function deleteIngredient($id) //Cancella l'ingrediente dalla tabella ingredient.
     {
         $this->deleteIngredientFromAllAllergens($id); //Richiama il metodo per rimuovere l'ingrediente dalla tabella molti a molti (per permettermi poi di eliminarlo dalla tabella ingredient).
-        
+        $this->deleteIngredientFromAllProducts($id); //Richiama il metodo per rimuovere l'ingrediente dalla tabella molti a molti (per permettermi poi di eliminarlo dalla tabella ingredient).
+
         //$query = 'DELETE i, ia FROM' . $this-> table_name . ' i INNER JOIN ingredients_allergens ia ON i.id = ia.allergens_id WHERE i.id = ' . $id;
         $query = 'DELETE FROM ' . $this->table_name . ' WHERE id = ' . $id;
 
@@ -77,11 +91,10 @@ class Ingredient
 
         if(count($allergens_ids) > 0);
         {
-            $query1 = 'SELECT DISTINCT id FROM ' . $this->table_name . ' WHERE name = \'' . $name; //Query per ritornarmi l'id dell'allergene.
+            $query1 = 'SELECT DISTINCT id FROM ' . $this->table_name . ' WHERE name = \'' . $name . '\''; //Query per ritornarmi l'id dell'allergene.
             $stmt1 = $this->conn-> prepare($query1);
             $stmt1-> execute();
-            $res = $stmt1->get_result();
-            
+            $res = $stmt1->get_result(); 
     
             for($i = 0; $i < count($allergens_ids); $i++)
             {
