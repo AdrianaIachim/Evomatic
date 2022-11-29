@@ -23,7 +23,7 @@ class Product
     //private $ingredients = []; //id Ingredient
     //private $tags = []; //id Tag
 
-    public function __construct($db) //Si connette al DB.
+    public function __construct() //Si connette al DB.
     {
         $this->db = new Connect;
         $this->conn = $this->db->getConnection();
