@@ -1,22 +1,30 @@
-<?php 
-class Database
+<?php
+class Connect
 {
-    protected $serverName = "localhost";
-    protected $dbName = "sandwiches";
-    protected $username = "root";
-    protected $password = "";
-    public $conn;
+    private $dbConnection = null;
 
-    public function connect()
+    public function __construct()
     {
-        try
-        {
-            $this->conn = new mysqli($this->serverName, $this->username, $this->password, $this->dbName);
+        $host = "claudiodressadore.net";
+        $port = "3306";
+        $db   = "paninara";
+        $user = "evomatic";
+        $pass = "evomatic2022";
+
+        try {
+            $this->dbConnection = new PDO(
+                "mysql:host=$host;port=$port;charset=utf8mb4;dbname=$db",
+                $user,
+                $pass
+            );
+        } catch (PDOException $e) {
+            exit($e->getMessage());
         }
-        catch (mysqli $ex)
-        {
-            die ("Error connecting to database $ex\n\n");
-        }
-        return $this->conn;
+    }
+
+    public function getConnection()
+    {
+        return $this->dbConnection;
     }
 }
+?>
