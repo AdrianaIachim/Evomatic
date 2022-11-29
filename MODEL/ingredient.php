@@ -21,7 +21,7 @@ class Ingredient
     //private $quantity;
     //private $allergens = []; //id Allergen
 
-    public function __construct($db) //Si connette al DB.
+    public function __construct() //Si connette al DB.
     {
         $this->db = new Connect;
         $this->conn = $this->db->getConnection();
